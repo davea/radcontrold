@@ -24,12 +24,13 @@ def callback(topic, payload, config):
         log.warning("Ignoring invalid payload on %s", topic)
         return
 
-    addresses = config['radiators'].get(room, "").split(",")
+    addresses = config['radiators'].get(room, "")
     if not addresses:
-        log.warning("No EQ3 addresses in config for %s", room)
+        # Control message is for a radiator we're not responsible for.
+        log.debug("No EQ3 addresses in config for %s", room)
         return
 
-    for address in addresses:
+    for address in addresses.split(","):
         log.info("Setting %s in %s to %s", address, room, mode)
         try:
             Thermostat(address).mode = mode
