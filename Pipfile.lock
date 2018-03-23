@@ -18,7 +18,7 @@
     "default": {
         "bluepy": {
             "hashes": [
-                "sha256:d619205cf52107da69fd8a5200f380372fc7b22e77e2555cb9aca1682d79df70"
+                "sha256:74e1fd87defdfb2173f889c493ec788f51f5f02155e110bdacbf6b26f7ded183"
             ],
             "version": "==1.1.4"
         },
@@ -38,7 +38,7 @@
         },
         "construct": {
             "hashes": [
-                "sha256:c23ef47fd5751d821e5c17d9b3b02d1f3c465e66b8a205b9c791c4abef747138"
+                "sha256:916ae5c28308a54933b9463467673c196ca09d7f85383037648108e5ba639b36"
             ],
             "version": "==2.9.39"
         },
@@ -52,7 +52,7 @@
         },
         "paho-mqtt": {
             "hashes": [
-                "sha256:31911f6031de306c27ed79dc77b690d7c55b0dcb0f0434ca34ec6361d0371122"
+                "sha256:ddda69d772497d538ad1c620412d03235ba74195f11b2161b843bcedac130155"
             ],
             "version": "==1.3.1"
         },
