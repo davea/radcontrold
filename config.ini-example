@@ -1,0 +1,8 @@
+[mqtt]
+broker=mqtt://127.0.0.1
+
+; Each radcontrold might be responsible for controlling radiators in
+; multiple rooms.
+[radiators]
+office=00:11:22:33:44:55
+livingroom=66:77:88:99:aa:bb,01:23:45:67:89:ab
