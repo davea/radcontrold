@@ -31,9 +31,9 @@ def callback(topic, payload, config):
         return
 
     for address in addresses.split(","):
-        log.info("Setting %s in %s to %s", address, room, mode)
         try:
             Thermostat(address).mode = mode
+            log.info("Set %s in %s to %s", address, room, mode)
         except BTLEException:
             log.warning("Couldn't set mode %s for %s in %s", mode, address, room)
         else:
