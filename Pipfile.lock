@@ -44,11 +44,11 @@
         },
         "mqttwrapper": {
             "hashes": [
-                "sha256:3ee7e416b0d3d0965cbb8ab01ea298bcd97f01bf8bf90476c5c28c37f6970e65",
-                "sha256:efd9034423d9c7c0a33a63a0b91d68c9ba3ba057afa0eb940a23e93f66f22c99"
+                "sha256:973082dc4d0c353cb7da0ff99f759764f9bf556bce32b86450bd96c537a49014",
+                "sha256:d8d391ef706a4a0585785a4d36a70a523da79891bc1f91dafae0fb6fa49a2b19"
             ],
             "index": "pypi",
-            "version": "==0.0.3"
+            "version": "==0.0.4"
         },
         "paho-mqtt": {
             "hashes": [
