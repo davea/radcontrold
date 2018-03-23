@@ -3,12 +3,13 @@ import sys
 import logging
 from configparser import ConfigParser
 from os.path import expanduser
+from socket import gethostname
 
 from eq3bt import Thermostat, Mode
 from bluepy.btle import BTLEException
 from mqttwrapper import run_script
 
-log = logging.getLogger("eq32mqtt")
+log = logging.getLogger("radcontrold")
 
 
 def callback(topic, payload, config):
@@ -39,6 +40,7 @@ def callback(topic, payload, config):
 def main():
     formatter = "[%(asctime)s] %(name)s %(levelname)s - %(message)s"
     logging.basicConfig(level=logging.DEBUG, format=formatter)
+    logging.getLogger('eq3bt').setLevel(logging.ERROR)
 
     hostname = gethostname().split(".")[0]
     config = ConfigParser()
