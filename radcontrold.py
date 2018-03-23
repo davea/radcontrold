@@ -36,6 +36,10 @@ def callback(topic, payload, config):
             Thermostat(address).mode = mode
         except BTLEException:
             log.warning("Couldn't set mode %s for %s in %s", mode, address, room)
+        else:
+            return [
+                ("{}/ack".format(topic), payload)
+            ]
 
 
 def main():
