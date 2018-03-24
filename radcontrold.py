@@ -30,16 +30,19 @@ def callback(topic, payload, config):
         log.debug("No EQ3 addresses in config for %s", room)
         return
 
+    success = True
     for address in addresses.split(","):
         try:
             Thermostat(address).mode = mode
             log.info("Set %s in %s to %s", address, room, mode)
         except BTLEException:
             log.warning("Couldn't set mode %s for %s in %s", mode, address, room)
-        else:
-            return [
-                ("{}/ack".format(topic), payload)
-            ]
+            success = False
+    # Only post acknowledgment to MQTT topic if all thermostats were controlled.
+    if success:
+        return [
+            ("{}/ack".format(topic), payload)
+        ]
 
 
 def main():
