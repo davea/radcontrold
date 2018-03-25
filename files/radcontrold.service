@@ -1,0 +1,17 @@
+[Unit]
+Description=Radiator control daemon
+After=syslog.target network.target
+Documentation=https://github.com/davea/radcontrold
+
+[Service]
+ExecStart=/usr/local/bin/pipenv run python radcontrold.py
+WorkingDirectory=/home/pi/radcontrold
+User=pi
+Group=pi
+SyslogIdentifier=radcontrold
+StandardOutput=syslog
+Restart=always
+KillSignal=SIGINT
+
+[Install]
+WantedBy=multi-user.target

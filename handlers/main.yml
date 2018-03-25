@@ -1,0 +1,2 @@
+- name: restart radcontrold
+  systemd: name=radcontrold state=restarted daemon_reload=yes

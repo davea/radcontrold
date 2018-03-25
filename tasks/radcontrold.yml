@@ -1,0 +1,64 @@
+- name: Install needed packages
+  apt: name={{ item }} state=latest
+  with_items:
+    - git
+    - python3
+    - python3-pip
+
+- name: Install pipenv
+  pip:
+    executable: pip3
+    name: pipenv
+    state: latest
+
+- name: Fetch code from github
+  become_user: pi
+  git:
+    repo: https://github.com/davea/radcontrold.git
+    dest: /home/pi/radcontrold
+  notify:
+    - restart radcontrold
+
+- name: Set up radcontrold pipenv
+  become_user: pi
+  shell: pipenv --bare install
+  args:
+    chdir: "/home/pi/radcontrold"
+  environment:
+    LANG: en_GB.UTF-8
+    LC_ALL: en_GB.UTF-8
+  notify:
+    - restart radcontrold
+
+- name: Setup config dir
+  file:
+    path: /home/pi/.config/radcontrold
+    state: directory
+    owner: pi
+    group: pi
+
+- name: Install radcontrold configuration
+  template:
+    src: radcontrold.ini.j2
+    dest: /home/pi/.config/radcontrold/{{ item.hostname }}.ini
+    owner: pi
+    group: pi
+  with_items: "{{ radcontrold.hosts }}"
+  notify:
+    - restart radcontrold
+
+- name: Create systemd service
+  copy:
+    src: radcontrold.service
+    dest: /etc/systemd/system/radcontrold.service
+    owner: root
+    group: root
+  notify:
+    - restart radcontrold
+
+- name: Enable systemd service
+  systemd:
+    enabled: yes
+    state: started
+    name: radcontrold
+    daemon_reload: yes

@@ -1,0 +1,14 @@
+---
+radcontrold:
+  hosts: []
+  mqtt:
+    broker: mqtt://127.0.0.1
+
+
+# radcontrold.hosts should be a list of items of the format:
+
+# - hostname: spareroom # hostname of the host running radcontrold.
+#   rooms:
+#     - name: spareroom # used for the MQTT topic name to subscribe to
+#       radiators: "00:11:22:33:44:55" # comma-separated list of MAC addresses
+

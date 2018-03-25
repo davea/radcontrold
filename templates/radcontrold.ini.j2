@@ -1,0 +1,9 @@
+[mqtt]
+broker={{ radcontrold.mqtt.broker }}
+
+; Each radcontrold might be responsible for controlling radiators in
+; multiple rooms.
+[radiators]
+{% for room in item.rooms %}
+{{ room.name }}={{ room.radiators }}
+{% endfor %}
