@@ -2,3 +2,4 @@
 __pycache__
 .ansible_vault_password
 .vscode
+/ansible-role
