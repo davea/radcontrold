@@ -37,6 +37,8 @@
     state: directory
     owner: pi
     group: pi
+  tags:
+    - radcontrold.config
 
 - name: Install radcontrold configuration
   template:
@@ -47,6 +49,8 @@
   with_items: "{{ radcontrold.hosts }}"
   notify:
     - restart radcontrold
+  tags:
+    - radcontrold.config
 
 - name: Create systemd service
   copy:
