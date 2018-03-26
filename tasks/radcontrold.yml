@@ -52,12 +52,16 @@
   tags:
     - radcontrold.config
 
-- name: Create systemd service
+- name: Create systemd units
   copy:
-    src: radcontrold.service
-    dest: /etc/systemd/system/radcontrold.service
+    src: "{{ item }}"
+    dest: "/etc/systemd/system/{{ item }}"
     owner: root
     group: root
+  with_items:
+    - radcontrold.service
+    - radcontrold_health_check.service
+    - radcontrold_health_check.timer
   notify:
     - restart radcontrold
 
@@ -66,4 +70,11 @@
     enabled: yes
     state: started
     name: radcontrold
+    daemon_reload: yes
+
+- name: Enable systemd health check service
+  systemd:
+    enabled: yes
+    state: started
+    name: radcontrold_health_check
     daemon_reload: yes
