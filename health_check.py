@@ -37,9 +37,9 @@ def main():
     hostname = gethostname().split(".")[0]
     config = ConfigParser()
     config.read(expanduser("~/.config/radcontrold/{}.ini".format(hostname)))
-    if not config:
+    if not config.has_section('radiators') or len(config['radiators']) == 0:
         log.warning("No config for {}, exiting.".format(hostname))
-        return
+        sys.exit(0)
 
     healthy = check_battery_statuses(config)
     if not healthy:
