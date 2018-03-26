@@ -12,6 +12,7 @@ log = logging.getLogger("health_check")
 
 
 def check_battery_statuses(config):
+    healthy = True
     for room, addresses in config['radiators'].items():
         addresses = addresses.split(",")
         for addr in addresses:
@@ -20,9 +21,12 @@ def check_battery_statuses(config):
                 thermostat.update()
             except BTLEException:
                 log.error("Couldn't connect to %s %s!", room, addr)
+                healthy = False
                 continue
             if thermostat.low_battery:
                 log.warning("Low battery reported by %s %s", room, addr)
+                healthy = False
+    return healthy
 
 
 def main():
@@ -37,7 +41,9 @@ def main():
         log.warning("No config for {}, exiting.".format(hostname))
         return
 
-    check_battery_statuses(config)
+    healthy = check_battery_statuses(config)
+    if not healthy:
+        sys.exit(1)
 
 if __name__ == '__main__':
     main()
