@@ -69,12 +69,11 @@
   systemd:
     enabled: yes
     state: started
-    name: radcontrold
+    name: radcontrold.service
     daemon_reload: yes
 
 - name: Enable systemd health check service
   systemd:
     enabled: yes
-    state: started
-    name: radcontrold_health_check
+    name: radcontrold_health_check.timer
     daemon_reload: yes
