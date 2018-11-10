@@ -4,6 +4,7 @@ import logging
 from configparser import ConfigParser
 from os.path import expanduser
 from socket import gethostname
+from time import sleep
 
 from eq3bt import Thermostat, Mode
 from bluepy.btle import BTLEException
@@ -32,11 +33,15 @@ def callback(topic, payload, config):
 
     success = True
     for address in addresses.split(","):
-        try:
-            Thermostat(address).mode = mode
-            log.info("Set %s in %s to %s", address, room, mode)
-        except BTLEException:
-            log.warning("Couldn't set mode %s for %s in %s", mode, address, room)
+        for attempt in range(10):
+            try:
+                Thermostat(address).mode = mode
+                log.info("Set %s in %s to %s", address, room, mode)
+                break
+            except BTLEException:
+                log.warning("Couldn't set mode %s for %s in %s", mode, address, room)
+            sleep(1)
+        else:
             success = False
     # Only post acknowledgment to MQTT topic if all thermostats were controlled.
     if success:
