@@ -7,7 +7,7 @@ verify_ssl = true
 ipython = "*"
 
 [packages]
-mqttwrapper = "*"
+mqttwrapper = {git = "https://github.com/davea/mqttwrapper.git",editable = true}
 "python-eq3bt" = "*"
 
 [requires]
