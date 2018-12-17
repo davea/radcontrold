@@ -1,9 +1,10 @@
 - name: Install needed packages
-  apt: name={{ item }} state=latest
-  with_items:
-    - git
-    - python3
-    - python3-pip
+  apt:
+    state: present
+    name:
+      - git
+      - python3
+      - python3-pip
 
 - name: Install pipenv
   pip:
